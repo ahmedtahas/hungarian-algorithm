@@ -4,13 +4,19 @@ public class HungarianAlgorithm
 {
 	public static void main(String[] args)
 	{
-		HungarianAlgorithm pair = new HungarianAlgorithm();
+		HungarianAlgorithm object = new HungarianAlgorithm();
+
 		int [][] costArray = new int[][]{{82,83,69,92}, {77,37,49,92}, {11,69,5,86}, {8,9,98,23}};
 
-		int [] output = pair.run(costArray);
-		System.out.println(Arrays.toString(output));
+		int [] assignedValues = object.run(costArray);
+
+		System.out.println(Arrays.toString(assignedValues));
 	}
 
+	/**
+	 * @param costArray - Cost Array
+	 * @return assignedValues
+	 */
 	public int[] run(int [][] costArray)
 	{
 
@@ -53,6 +59,9 @@ public class HungarianAlgorithm
 		return assignValues(costArray);
 	}
 
+	/**
+	 * @param costArray - Cost Array
+	 */
 	void printArray(int[][] costArray)
 	{
 		for(int[] row : costArray)
@@ -63,6 +72,13 @@ public class HungarianAlgorithm
 		}
 	}
 
+	/**
+	 * Counts the covered lines
+	 *
+	 * @param rows - marked rows
+	 * @param columns - marked columns
+	 * @return count
+	 */
 	int countLines(int[] rows, int[] columns)
 	{
 		int count = 0;
@@ -76,6 +92,12 @@ public class HungarianAlgorithm
 		return count;
 	}
 
+	/**
+	 * Assigns values
+	 *
+	 * @param costArray - Cost Array
+	 * @return assignedValues
+	 */
 	public int[] assignValues(int[][] costArray)
 	{
 		boolean[][] deprecatedLines = new boolean[costArray.length][costArray[0].length];
@@ -113,6 +135,12 @@ public class HungarianAlgorithm
 		return assignedValues;
 	}
 
+	/**
+	 * Counts the number of true cells in the boolean array
+	 *
+	 * @param deprecatedLines - Boolean Array that stores covered lines
+	 * @return count
+	 */
 	int countTrues(boolean [][] deprecatedLines)
 	{
 		int count = 0;
@@ -124,6 +152,16 @@ public class HungarianAlgorithm
 		return count;
 	}
 
+	/**
+	 * Refactors row and column of the selected cell to false
+	 * in the boolean array
+	 *
+	 * @param deprecatedLines - Boolean Array that stores covered lines
+	 * @param costArray - Cost Array
+	 * @param row - row index
+	 * @param column - column index
+	 * @return deprecatedLines
+	 */
 	public boolean[][] deprecateRowAndColumn(boolean[][] deprecatedLines, int[][] costArray, int row, int column)
 	{
 
@@ -134,6 +172,14 @@ public class HungarianAlgorithm
 		return deprecatedLines;
 	}
 
+	/**
+	 * Returns an integer array that stores
+	 * the number of zeros in every row
+	 *
+	 * @param deprecatedLines - Boolean Array that stores covered lines
+	 * @param costArray - Cost Array
+	 * @return zerosInRows
+	 */
 	public int[] countZeros(boolean[][] deprecatedLines, int[][] costArray)
 	{
 		int[] zerosInRows = new int[costArray.length];
@@ -145,6 +191,14 @@ public class HungarianAlgorithm
 		return zerosInRows;
 	}
 
+	/**
+	 * Subtracts the minimum uncovered element from
+	 * uncovered rows, then adds it to covered columns
+	 * @param costArray - Cost Array
+	 * @param rows - marked rows
+	 * @param columns - marked columns
+	 * @return costArray
+	 */
 	int[][] refactorArray(int[][] costArray, int[] rows, int[] columns)
 	{
 		int min = Integer.MAX_VALUE;
@@ -166,6 +220,13 @@ public class HungarianAlgorithm
 		return costArray;
 	}
 
+
+	/**
+	 * Returns a Pair object for covered rows and columns
+	 *
+	 * @param costArray - Cost Array
+	 * @return Pair
+	 */
 	Pair drawLines(int[][] costArray) {
 
 		int[] assignRows = new int[costArray.length];
@@ -217,7 +278,12 @@ public class HungarianAlgorithm
 		return new Pair(coverRows, coverColumns);
 	}
 
-
+	/**
+	 * Subtracts the minimum element from its row
+	 *
+	 * @param costArray - Cost Array
+	 * @return costArray
+	 */
 	public int[][] subtractMinFromRows(int[][] costArray)
 	{
 		int[] min = new int[costArray.length];
@@ -236,6 +302,12 @@ public class HungarianAlgorithm
 		return costArray;
 	}
 
+	/**
+	 * Subtracts the minimum element from its columns
+	 * 
+	 * @param costArray - Cost Array
+	 * @return costArray
+	 */
 	public int[][] subtractMinFromColumns(int[][] costArray)
 	{
 		int[] min = new int[costArray.length];
@@ -257,6 +329,13 @@ public class HungarianAlgorithm
 	{
 		int[] rows;
 		int[] columns;
+
+		/**
+		 * Constructor for Pair object
+		 *
+		 * @param rows - marked rows
+		 * @param columns - marked columns
+		 */
 		public Pair(int[] rows, int[] columns)
 		{
 			this.rows = rows;
